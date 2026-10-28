@@ -1,0 +1,9 @@
+tmpPDF/
+pdf/
+*.pdf
+*.html
+*.epub
+*.txt
+dictionary/
+ttf/
+.cobra.yaml
