@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/jpabloVega/dokodemoYomou/api"
-	"github.com/jpabloVega/dokodemoYomou/email"
+	"github.com/jpabloVega/dodeyo/api"
+	"github.com/jpabloVega/dodeyo/email"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

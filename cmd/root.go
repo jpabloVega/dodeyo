@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/jpabloVega/dokodemoYomou/database"
+	"github.com/jpabloVega/dodeyo/database"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/jpabloVega/dokodemoYomou/api"
-	"github.com/jpabloVega/dokodemoYomou/database"
+	"github.com/jpabloVega/dodeyo/api"
+	"github.com/jpabloVega/dodeyo/database"
 	"github.com/spf13/cobra"
 )
 

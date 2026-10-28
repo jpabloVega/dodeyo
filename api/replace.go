@@ -3,7 +3,7 @@ package api
 import (
 	"strings"
 
-	vocabtrie "github.com/jpabloVega/dokodemoYomou/vocab_trie"
+	vocabtrie "github.com/jpabloVega/dodeyo/vocab_trie"
 )
 
 func ReplaceKanji(chapter Chapter) (Chapter, error) {

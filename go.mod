@@ -1,4 +1,4 @@
-module github.com/jpabloVega/dokodemoYomou
+module github.com/jpabloVega/dodeyo
 
 go 1.27.0
 

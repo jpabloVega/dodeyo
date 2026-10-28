@@ -3,7 +3,7 @@ package main
 import (
 	"embed"
 
-	"github.com/jpabloVega/dokodemoYomou/cmd"
+	"github.com/jpabloVega/dodeyo/cmd"
 )
 
 var (

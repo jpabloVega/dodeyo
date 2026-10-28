@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/jpabloVega/dokodemoYomou/api"
+	"github.com/jpabloVega/dodeyo/api"
 	"go.etcd.io/bbolt"
 )
 

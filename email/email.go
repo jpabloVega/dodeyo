@@ -3,7 +3,7 @@ package email
 import (
 	"fmt"
 
-	"github.com/jpabloVega/dokodemoYomou/secure"
+	"github.com/jpabloVega/dodeyo/secure"
 	"github.com/spf13/viper"
 	"github.com/wneessen/go-mail"
 )

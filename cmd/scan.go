@@ -6,8 +6,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/jpabloVega/dokodemoYomou/api"
-	vocabtrie "github.com/jpabloVega/dokodemoYomou/vocab_trie"
+	"github.com/jpabloVega/dodeyo/api"
+	vocabtrie "github.com/jpabloVega/dodeyo/vocab_trie"
 	"github.com/schollz/progressbar/v3"
 	"github.com/spf13/cobra"
 )

@@ -11,9 +11,9 @@ import (
 	"time"
 	"uuid"
 
-	"github.com/jpabloVega/dokodemoYomou/api"
-	"github.com/jpabloVega/dokodemoYomou/database"
-	"github.com/jpabloVega/dokodemoYomou/email"
+	"github.com/jpabloVega/dodeyo/api"
+	"github.com/jpabloVega/dodeyo/database"
+	"github.com/jpabloVega/dodeyo/email"
 	"github.com/raitucarp/epub"
 	"github.com/schollz/progressbar/v3"
 	"github.com/signintech/gopdf"

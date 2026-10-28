@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/jpabloVega/dokodemoYomou/secure"
+	"github.com/jpabloVega/dodeyo/secure"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
