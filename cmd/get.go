@@ -59,7 +59,6 @@ func init() {
 	getCmd.Flags().BoolVar(&oEPub, "epub", false, "Output in EPUB")
 	getCmd.MarkFlagsOneRequired("pdf", "html", "epub")
 	getCmd.MarkFlagsMutuallyExclusive("pdf", "html", "epub")
-
 }
 
 var getCmd = &cobra.Command{

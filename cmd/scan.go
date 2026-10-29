@@ -3,12 +3,11 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	"sync"
 	"time"
-	"unicode/utf8"
 
 	"github.com/jpabloVega/dodeyo/api"
 	vocabtrie "github.com/jpabloVega/dodeyo/vocab_trie"
-	"github.com/schollz/progressbar/v3"
 	"github.com/spf13/cobra"
 )
 
@@ -44,6 +43,15 @@ func ScanBook(_ *cobra.Command, args []string) error {
 		}
 	}
 	return nil
+}
+
+type wordsSorted struct {
+	n1    []string
+	n2    []string
+	n3    []string
+	n4    []string
+	n5    []string
+	other []string
 }
 
 func ScanBookCommand(address string, c *api.Client) error {
@@ -85,38 +93,71 @@ func ScanBookCommand(address string, c *api.Client) error {
 		return err
 	}
 
-	nCount := make(map[string][]string)
+	resultsChan := make(chan wordsSorted, len(chaptersData))
+	var wg sync.WaitGroup
 
 	for _, chapter := range chaptersData {
-		chapterLen := len(chapter.Contents)
-		chapterProgress := progressbar.Default(int64(chapterLen), "Scanning chapter...")
 		for _, line := range chapter.Contents {
-			chapterProgress.Add(1)
-			if line == "" {
-				continue
-			}
-			splitLine := []rune(line)
-			start := 0
-			end := len(splitLine)
-			for true {
-				currWord := string(splitLine[start:end])
-				foundWord, found := t.Search(currWord)
-				if found {
-					nCount[foundWord.Level] = append(nCount[foundWord.Level], foundWord.Kanji)
-					start += utf8.RuneCountInString(currWord)
-					end = len(splitLine)
-					continue
+			wg.Add(1)
+			go func(currLine string) {
+				defer wg.Done()
+
+				if currLine == "" {
+					resultsChan <- wordsSorted{}
+					return
 				}
-				end -= 1
-				if end == start {
-					start += 1
-					end = len(splitLine)
+				splitLine := []rune(currLine)
+				start := 0
+				end := len(splitLine)
+				lineCount := wordsSorted{}
+				for start < end {
+					currWord := string(splitLine[start:end])
+					foundWord, found := t.Search(currWord)
+					if found {
+						wordLen := end - start
+						start += wordLen
+						end = len(splitLine)
+						switch foundWord.Level {
+						case "n1":
+							lineCount.n1 = append(lineCount.n1, currWord)
+						case "n2":
+							lineCount.n2 = append(lineCount.n2, currWord)
+						case "n3":
+							lineCount.n3 = append(lineCount.n3, currWord)
+						case "n4":
+							lineCount.n4 = append(lineCount.n4, currWord)
+						case "n5":
+							lineCount.n5 = append(lineCount.n5, currWord)
+						default:
+							lineCount.other = append(lineCount.other, currWord)
+						}
+						continue
+					}
+					end--
+					if end == start {
+						start++
+						end = len(splitLine)
+					}
 				}
-				if start >= len(splitLine)-1 {
-					break
-				}
-			}
+				resultsChan <- lineCount
+			}(line)
 		}
+	}
+
+	go func() {
+		wg.Wait()
+		close(resultsChan)
+	}()
+
+	nCount := make(map[string][]string)
+
+	for results := range resultsChan {
+		nCount["n1"] = append(nCount["n1"], results.n1...)
+		nCount["n2"] = append(nCount["n2"], results.n2...)
+		nCount["n3"] = append(nCount["n3"], results.n3...)
+		nCount["n4"] = append(nCount["n4"], results.n4...)
+		nCount["n5"] = append(nCount["n5"], results.n5...)
+		nCount["other"] = append(nCount["other"], results.other...)
 	}
 
 	if verbose {
@@ -130,6 +171,8 @@ func ScanBookCommand(address string, c *api.Client) error {
 		fmt.Println("")
 		fmt.Printf("N5: %v\n", nCount["n5"])
 		fmt.Println("")
+		fmt.Printf("Other: %v\n", nCount["other"])
+		fmt.Println("")
 	}
 	fmt.Println("Words from every level")
 	fmt.Printf("N1: %d\n", len(nCount["n1"]))
@@ -137,5 +180,6 @@ func ScanBookCommand(address string, c *api.Client) error {
 	fmt.Printf("N3: %d\n", len(nCount["n3"]))
 	fmt.Printf("N4: %d\n", len(nCount["n4"]))
 	fmt.Printf("N5: %d\n", len(nCount["n5"]))
+	fmt.Printf("other: %d\n", len(nCount["other"]))
 	return nil
 }
