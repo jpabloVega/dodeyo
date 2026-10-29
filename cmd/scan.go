@@ -18,16 +18,17 @@ var (
 func init() {
 	rootCmd.AddCommand(scanCmd)
 
-	scanCmd.Flags().BoolVarP(&verbose, "verbose", "v", false, "Show details")
-	scanCmd.Flags().IntVarP(&chapterAmount, "amount", "a", 10, "Download this amount of chapters")
+	scanCmd.Flags().BoolVarP(&verbose, "verbose", "v", false, "Show the words found from each level")
+	scanCmd.Flags().IntVarP(&chapterAmount, "amount", "a", 10, "Scan this amount of chapters")
 	scanCmd.Flags().IntVar(&startFrom, "start", 0, "Start from chapter")
 
 }
 
 var scanCmd = &cobra.Command{
-	Use:   "scan",
-	Short: "Get the urls",
-	Long:  "Implement me",
+	Use:   "scan [syosetsu url]",
+	Short: "Scan the vocabulary in a syosetsu novel",
+	Long:  "Scan a novel to discover the jlpt level of the vocabulary",
+	Args:  cobra.ExactArgs(1),
 	RunE:  ScanBook,
 }
 

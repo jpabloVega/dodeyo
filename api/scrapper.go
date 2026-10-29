@@ -206,7 +206,7 @@ func GetChapterData(data string) (Chapter, error) {
 }
 
 func (c *Client) GetFromRange(urlData UrlInfo, chapterAmount int) ([]Chapter, error) {
-	downloadBar := progressbar.Default(int64(chapterAmount), "Downloading chapters...\n")
+	downloadBar := progressbar.Default(int64(chapterAmount), "Downloading chapters...")
 	var scrappedChapters []Chapter
 	for i := urlData.StartIndex; i < urlData.StartIndex+chapterAmount; i++ {
 		fullURL := fmt.Sprintf("%s/%d/", urlData.Url, i)

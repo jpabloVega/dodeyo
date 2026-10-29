@@ -49,9 +49,9 @@ func init() {
 	getCmd.Flags().IntVar(&titleSize, "titlesize", 16, "Size for the font of the titles (only for pdf)")
 	getCmd.Flags().IntVarP(&chapterAmount, "amount", "a", 10, "Download this amount of chapters")
 	getCmd.Flags().IntVar(&startFrom, "start", 0, "Start from chapter")
-	getCmd.Flags().StringVarP(&destinationPath, "saveto", "s", "", "Path to the folder where pdf's are stored")
-	getCmd.Flags().StringVarP(&fileName, "name", "n", "", "Name of the newly created pdf, defaults to novel title")
-	getCmd.Flags().BoolVarP(&vertical, "vertical", "v", false, "Export text in vertical(only availible to html and epub)")
+	getCmd.Flags().StringVarP(&destinationPath, "saveto", "s", "", "Path to the folder where output file's are stored")
+	getCmd.Flags().StringVarP(&fileName, "name", "n", "", "Name of the output file, defaults to novel title")
+	getCmd.Flags().BoolVarP(&vertical, "vertical", "v", false, "Export text in vertical(not availible for pdf)")
 	getCmd.Flags().BoolVar(&mailToKindle, "send", false, "Mail to kindle")
 	getCmd.Flags().BoolVar(&replaceKanji, "furigana", false, "Add furigana")
 	getCmd.Flags().BoolVar(&oPDF, "pdf", false, "Output in PDF")
@@ -62,9 +62,9 @@ func init() {
 }
 
 var getCmd = &cobra.Command{
-	Use:   "get",
+	Use:   "get [syosetsu url]",
 	Short: "Export novel from syosetsu",
-	Long:  "",
+	Long:  "Convert novel from syosetsuka ni narou into eReader format",
 	Args:  cobra.ExactArgs(1),
 	RunE:  GetContents,
 }
@@ -210,7 +210,7 @@ func GetCommand(cmd *cobra.Command, address string, c *api.Client) error {
 }
 
 func GetHTML(chaptersData []api.Chapter, bookCredits api.Credits) (string, error) {
-	htmlProgress := progressbar.Default(int64(len(chaptersData)), "Creating html...\n")
+	htmlProgress := progressbar.Default(int64(len(chaptersData)), "Creating html...")
 
 	var vertFormat string
 	if vertical {
@@ -306,7 +306,7 @@ func GetHTML(chaptersData []api.Chapter, bookCredits api.Credits) (string, error
 }
 
 func GetPDF(chapterData []api.Chapter, credits api.Credits) (string, error) {
-	pdfProgress := progressbar.Default(int64(len(chapterData)), "Creating PDF...\n")
+	pdfProgress := progressbar.Default(int64(len(chapterData)), "Creating PDF...")
 
 	// Create pdf
 	pdf := gopdf.GoPdf{}
@@ -456,7 +456,7 @@ func GetPDF(chapterData []api.Chapter, credits api.Credits) (string, error) {
 }
 
 func GetEPub(chapterData []api.Chapter, credits api.Credits) (string, error) {
-	ePubProgress := progressbar.Default(int64(len(chapterData)), "Creating Epub...\n")
+	ePubProgress := progressbar.Default(int64(len(chapterData)), "Creating Epub...")
 	id := uuid.New()
 
 	w := epub.New(fmt.Sprintf("urn:uuid:%s", id.String()))
@@ -511,9 +511,8 @@ func GetEPub(chapterData []api.Chapter, credits api.Credits) (string, error) {
 
 	var tocItems []epub.TOC
 
-	var xhtml strings.Builder
-
 	if credits.Type == api.Serialized && len(credits.Body) != 0 {
+		var summaryBuild strings.Builder
 		curr := fmt.Sprintf(`<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://w3.org"%s xml:lang="ja" lang="ja">
@@ -523,30 +522,31 @@ func GetEPub(chapterData []api.Chapter, credits api.Credits) (string, error) {
 </head>
 <body>
 	<h1>%s</h1>
-`, vertHeader, credits.Title, cssStyling, credits.Title)
-		xhtml.WriteString(curr)
+`, vertHeader, "あらすじ", cssStyling, "あらすじ")
+		summaryBuild.WriteString(curr)
 		for _, line := range credits.Body {
 			if line == "" {
 				continue
 			}
 			currLine := fmt.Sprintf(`	<p>%s</p>
 `, line)
-			xhtml.WriteString(currLine)
+			summaryBuild.WriteString(currLine)
 
 		}
 		endLines := `</body>
 </html>`
-		xhtml.WriteString(endLines)
+		summaryBuild.WriteString(endLines)
 
-		w.AddContent("あらすじ", []byte(xhtml.String()))
+		w.AddContent("あらすじ.xhtml", []byte(summaryBuild.String()))
 
 		tocItems = append(tocItems, epub.TOC{
 			Title: credits.Title,
-			Href:  "あらすじ",
+			Href:  "あらすじ.xhtml",
 		})
 	}
 
 	for i, chapter := range chapterData {
+		var xhtml strings.Builder
 		ePubProgress.Add(1)
 		currChapter := fmt.Sprintf(`<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>

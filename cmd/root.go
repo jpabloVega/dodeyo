@@ -18,11 +18,14 @@ var (
 var rootCmd = &cobra.Command{
 	Use:   "dodeyo",
 	Short: "Export you favorite novels from syosetsu.",
-	Long: `Export your favorite novels from syosetsu
+	Long: `Export your favorite novels from syosetsu or a txt file
+Choose your format pdf, epub or html
 Save it locally, on your eReader or mail it to your kindle
 Scan them to know the jlpt level of the vocabulary
 Add furigana for an easy read`,
-	RunE: GetContents,
+	CompletionOptions: cobra.CompletionOptions{
+		DisableDefaultCmd: true,
+	},
 }
 
 func Execute() {
@@ -34,9 +37,6 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
-	rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
-	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
 	viper.SetDefault("author", "Juan Pablo Vega Pérez <vega_perezpablo@hotmail.com>")
 	viper.SetDefault("license", "apache")
 

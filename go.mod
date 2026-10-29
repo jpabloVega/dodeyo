@@ -5,6 +5,7 @@ go 1.27.0
 require (
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/gocarina/gocsv v0.0.0-20260926200228-b2c6eb8fefab
+	github.com/microcosm-cc/bluemonday v1.0.27
 	github.com/raitucarp/epub v0.5.1
 	github.com/rhysd/go-github-selfupdate v1.2.3
 	github.com/schollz/progressbar/v3 v3.19.1
@@ -31,7 +32,6 @@ require (
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/inconshreveable/go-update v0.0.0-20160112193335-8152e7eb6ccf // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/microcosm-cc/bluemonday v1.0.27 // indirect
 	github.com/mitchellh/colorstring v0.0.0-20190213212951-d06e56a500db // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/phpdave11/gofpdi v1.0.16 // indirect

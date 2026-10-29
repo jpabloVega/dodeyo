@@ -19,8 +19,8 @@ func init() {
 
 	cnvrtCmd.Flags().IntVar(&bodySize, "bodysize", 14, "Size for the font of the body (only for pdf)")
 	cnvrtCmd.Flags().IntVar(&titleSize, "titlesize", 16, "Size for the font of the titles (only for pdf)")
-	cnvrtCmd.Flags().StringVarP(&destinationPath, "saveto", "s", "", "Path to the folder where pdf's are stored")
-	cnvrtCmd.Flags().StringVarP(&fileName, "name", "n", "", "Name of the newly created pdf, defaults to novel title")
+	cnvrtCmd.Flags().StringVarP(&destinationPath, "saveto", "s", "", "Path to the folder output file's are stored")
+	cnvrtCmd.Flags().StringVarP(&fileName, "name", "n", "", "Name of the output file, defaults to novel title")
 	cnvrtCmd.Flags().BoolVarP(&vertical, "vertical", "v", false, "Export text in vertical(only availible to html and epub)")
 	cnvrtCmd.Flags().BoolVar(&mailToKindle, "send", false, "Mail to kindle")
 	cnvrtCmd.Flags().BoolVar(&replaceKanji, "furigana", false, "Add furigana")
@@ -32,9 +32,10 @@ func init() {
 }
 
 var cnvrtCmd = &cobra.Command{
-	Use:   "convert",
+	Use:   "convert [filepath .txt]",
 	Short: "Convert txt files to eReader format",
 	Long:  "Convert txt files into a valid format for eReader",
+	Args:  cobra.ExactArgs(1),
 	RunE:  convertCmd,
 }
 

@@ -24,7 +24,7 @@ func init() {
 	configCmd.Flags().BoolVar(&showConfig, "show", false, "Show current config")
 	configCmd.Flags().StringVar(&proxy, "proxy", "", "Set proxy for requests")
 	configCmd.Flags().BoolVar(&removeProxy, "removeProxy", false, "Remove the current config proxy")
-	configCmd.Flags().StringVar(&newDestinationPath, "defaultPath", "", "Default path to save content")
+	configCmd.Flags().StringVar(&newDestinationPath, "defaultPath", "", "Set the default path to save content")
 	configCmd.Flags().StringVar(&kindleEmail, "kindleEmail", "", "Set your kindle address")
 
 }
