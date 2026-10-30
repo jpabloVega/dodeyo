@@ -9,7 +9,9 @@ The app keeps track of the novels you download if you only download 10 of 100 ch
 
 ### With go installed
 
-```go install github.com/jpabloVega/dodeyo```
+```bash
+go install github.com/jpabloVega/dodeyo
+```
  
 ## Usage 
 
@@ -46,63 +48,67 @@ Short version.
 
 ### Get command flags
 
+``
+dodeyo get [syosetsu novel url] [flags]
+``
+
 Flags come after the url, you can use multiple of them, however **--epub**, **--html** and **--pdf** are exclusive to each other.
 
 ##### Name
-Define a name for the document, it defaults to the novels title.
-``bash
---name [document name]
+Define a name for the document, it defaults to the novels title.  
 ``
-short version
+--name [document name]
+``  
+Short version.  
 ``
 --n [document name]
-``
+``  
 
 ##### Start From Chapter
+You can start from any chapter.  
 ``
 --start [number]
-``
-Start from order of operations.
-1. --start flag
-2. last downloaded chapter
-3. index of the given link
+``  
+If this flag is omitted, it will choose using this hierarchy:
+1. The last chapter you downloaded from this novel.
+2. The index in the link you introduce.
+3. The first chapter
 
 This command is for serialized novels only.
 
 ##### Amount
 Amount of chapters to download. Defaults to 10.  
-They will be included in the same document.
+They will be included in the same document.  
 ``
 --amount [number]
-``
-short version
+``  
+Short version.  
 ``
 -a [number]
 ``
 
 ##### Furigana
-Add kana reading to kanji.
+Add kana reading to kanji.  
 ``
 --furigana
-``
+``  
 
 ##### Vertical
-Create novel usign vertical reading.
+Create novel usign vertical reading.  
 ``
 --vertical
-``
-short version
+``  
+Short version.
 ``
 -v
 ``
 
 ##### Save to
-Define a directory to save the output for the current execution, this doesnt change not sets the default directory to define a default folder use the config command.
-
-``bash
---saveto [path]
+Define a directory to save the output for the current execution, this doesnt change the default directory to define a default folder use the config command.  
 ``
-short version
+--saveto [path]
+``  
+Short version.  
 ``
 -s [path]
 ``
@@ -113,11 +119,11 @@ If no mail is set this will ask for your mail information.
 ``
 --send
 ``  
-You will need an **App Password** for your Gmail account, this password is saved in the password administrator on your device.
+You will need an **App Password** for your Gmail account, this password will be saved in the password administrator on your device.
 You also need to add your Gmail account into your authorized emails in your amazon kindle configuration.
 
 ##### Pdf format
-You can change the size of the title and body.
+You can change the size of the title and body.  
 Change title size, default is 16.  
 ``
 --titlesize [number]
@@ -140,7 +146,7 @@ The txt file will be converted using these rules.
 - If the first line in the last paragraph is named **Credits** the next two lines will be the author and the link.
 
 ### Scan command
-Scan a novel from its link, to know the jlpt level of the vocabulary.  
+Scan a novel to know the jlpt level of the vocabulary.  
 ``
 dodeyo scan [syosetsu novel url] [flags]
 ``  
@@ -151,17 +157,17 @@ This command shares the next flags with the get command.
 
 ##### Verbose
 By default scan prints the number of words on each jlpt level found in the novel.
-You can use this command to see the list of words it found.
+You can use this command to see the full list of words it found.  
 ``
 --verbose
 ``  
-short version  
+Short version.  
 ``
 -v
 ``  
 
 ### History command
-You can see your novel download history.
+You can see your novel download history.  
 ``
 dodeyo history
 `` 
@@ -180,7 +186,7 @@ Set the default path.
 ``  
 
 ##### Gmail and App password
-Access the new email menu to change your gmail or app password.
+Access the new email menu to change your mail or app password.
 ``
 --email
 ``  
@@ -196,7 +202,7 @@ Set a proxy.
 ``
 --proxy [proxy address]
 ``  
-If a proxy is set, the program will continue to use it.
+If a proxy is set, the program will continue to use it.  
 To stop this you can remove it.  
 ``
 --removeProxy
@@ -209,7 +215,7 @@ Prints the current configuration values.
 ``
 
 ### Update command
-Downloads and installs the newest version of dodeyo.
+Downloads and installs the newest version of dodeyo.  
 ``
 dodeyo update
 ``
