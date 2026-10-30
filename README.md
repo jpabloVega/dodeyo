@@ -1,17 +1,15 @@
 # Dodeyo
 
-Supercharge your japanese learning journey with free novels from the biggest japanese amateur novelist site **[syosetsu.com](https://syosetu.com/)**.
-Export your favorite novels as epub, pdf or html. Email them to your kindle or export them to any ereader and keep practicing your japanese wherever you are.
-Scan novels to find the jlpt level of the vocabulary used, is the vocabulary too hard? Add furigana for an easier read. Want a more japanese style, convert novels into a vertical format.
-The app keeps track of the novels you download if you only download 10 of 100 chapters the next time you download the app will download from where you left off.
+Supercharge your japanese learning journey with free novels from the biggest japanese amateur novelist site **[syosetsu.com](https://syosetu.com/)**.  
+Dokodemoyomou is the easiest way to export your favorite novels as epub, pdf or html. Email them to your kindle or export them to any ereader and keep practicing your japanese wherever you are.  
+Scan novels to find the jlpt level of the vocabulary used, is the vocabulary too hard? Add furigana for an easier read. Want a more japanese style, convert novels into a vertical format.  
+The app keeps track of the novels you download if you only download 10 of 100 chapters the next time you download the app will download from where you left off.  
 
 ## Quick Start
 
 ### With go installed
 
-``bash
-go install github.com/jpabloVega/dodeyo
-``
+```go install github.com/jpabloVega/dodeyo```
  
 ## Usage 
 
@@ -22,50 +20,63 @@ You can choose the output of the file by using one of these flags:
 - --html
 - --pdf
 
-``bash
+``
 dodeyo get [syosetsu novel url] --epub [flags]
 ``
 
 After the first download you will be asked to introduce a folder to store the file, this will become your default folder, you can change it later using the config command.
 
-#### Get command flags
+#### Flags
 
-Flags come after the url, you can use multiple of them, however **--epub**, **--html** and **--pdf** are exclusive to each other.
-You can use the next flag to get addicional information of any command:
+You can add flags after a command to change its behaviour.  
 
-``bash
+You can use this flag on any command to get more information.
+
+``
 --help
-short version
+``
+
+Short version
+
+``
 -h
 ``
-##### Name
 
-Define a name for the document, it defaults to the novels title.
-
-``bash
---name [document name]
-short version
---n [document name]
-``
-
-
-##### Start From
-
-When you download a novel it will start from the chapter of the link you give or the first chapter if you introduce the link from the index page of the novel.
-If you downloaded this novel previously it will start from the last chapter downloaded.
-You can bypass this by using this command.
-
-``bash
---start [number]
-``
-
-Order of operation from most to least priority.
-
-1. --start flag
-2. last downloaded chapter
-3. index of the given link
-
-For one chapter novel this does nothing.
+> #### Get command flags
+>
+> Flags come after the url, you can use multiple of them, however **--epub**, **--html** and **--pdf** are exclusive to each other.
+>
+> ##### Name
+>
+>> Define a name for the document, it defaults to the novels title.
+>>
+>> ``bash
+>> --name [document name]
+>> ``
+>
+>> short version
+>> ``
+>> --n [document name]
+>> ``
+>
+>
+> ##### Start From
+>
+> When you download a novel it will start from the chapter of the link you give or the first chapter if you introduce the link from the index page of the novel.
+> If you downloaded this novel previously it will start from the last chapter downloaded.  
+> You can bypass this by using this command.
+>
+>> ``
+>> --start [number]
+>> ``
+>
+> Order of operation from most to least priority.
+>
+> 1. --start flag
+> 2. last downloaded chapter
+> 3. index of the given link
+>
+> For one chapter novel this does nothing.
 
 ##### Amount
 
