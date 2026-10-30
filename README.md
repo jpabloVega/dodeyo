@@ -98,7 +98,7 @@ Create novel usign vertical reading.
 ``
 --vertical
 ``  
-Short version.
+Short version.  
 ``
 -v
 ``
@@ -170,7 +170,7 @@ Short version.
 You can see your novel download history.  
 ``
 dodeyo history
-`` 
+``  
 This prints the name, link, download date, and the next chapter to download.  
 You can use this to get the link of a novel you liked.
 
@@ -180,13 +180,13 @@ dodeyo config [flags]
 ``  
 
 ##### Default path
-Set the default path.
+Set the default path.  
 ``
 --defaultPath [path]
 ``  
 
 ##### Gmail and App password
-Access the new email menu to change your mail or app password.
+Access the new email menu to change your mail or app password.  
 ``
 --email
 ``  
@@ -198,7 +198,7 @@ Set your kindle email.
 ``  
 
 ##### Proxy
-Set a proxy.
+Set a proxy.  
 ``
 --proxy [proxy address]
 ``  
