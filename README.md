@@ -1,7 +1,7 @@
 # Dodeyo
 
+**Dokodemoyomou** is the easiest way to export your favorite novels as epub, pdf or html, mail them to your kindle or export them to any ereader and keep practicing your japanese wherever you are.  
 Supercharge your japanese learning journey with free novels from the biggest japanese amateur novelist site **[syosetsu.com](https://syosetu.com/)**.  
-Dokodemoyomou is the easiest way to export your favorite novels as epub, pdf or html. Email them to your kindle or export them to any ereader and keep practicing your japanese wherever you are.  
 Scan novels to find the jlpt level of the vocabulary used, is the vocabulary too hard? Add furigana for an easier read. Want a more japanese style, convert novels into a vertical format.  
 The app keeps track of the novels you download if you only download 10 of 100 chapters the next time you download the app will download from where you left off.  
 
@@ -20,8 +20,10 @@ You can choose the output of the file by using one of these flags:
 - --html
 - --pdf
 
+File created as epub:
+
 ``
-dodeyo get [syosetsu novel url] --epub [flags]
+dodeyo get [syosetsu novel url] --epub
 ``
 
 After the first download you will be asked to introduce a folder to store the file, this will become your default folder, you can change it later using the config command.
@@ -36,234 +38,187 @@ You can use this flag on any command to get more information.
 --help
 ``
 
-Short version
+Short version.  
 
 ``
 -h
 ``
 
-> #### Get command flags
->
-> Flags come after the url, you can use multiple of them, however **--epub**, **--html** and **--pdf** are exclusive to each other.
->
-> ##### Name
->
->> Define a name for the document, it defaults to the novels title.
->>
->> ``bash
->> --name [document name]
->> ``
->
->> short version
->> ``
->> --n [document name]
->> ``
->
->
-> ##### Start From
->
-> When you download a novel it will start from the chapter of the link you give or the first chapter if you introduce the link from the index page of the novel.
-> If you downloaded this novel previously it will start from the last chapter downloaded.  
-> You can bypass this by using this command.
->
->> ``
->> --start [number]
->> ``
->
-> Order of operation from most to least priority.
->
-> 1. --start flag
-> 2. last downloaded chapter
-> 3. index of the given link
->
-> For one chapter novel this does nothing.
+### Get command flags
+
+Flags come after the url, you can use multiple of them, however **--epub**, **--html** and **--pdf** are exclusive to each other.
+
+##### Name
+Define a name for the document, it defaults to the novels title.
+``bash
+--name [document name]
+``
+short version
+``
+--n [document name]
+``
+
+##### Start From Chapter
+``
+--start [number]
+``
+Start from order of operations.
+1. --start flag
+2. last downloaded chapter
+3. index of the given link
+
+This command is for serialized novels only.
 
 ##### Amount
-
-The number of chapters to download from a novel. Defaults to 10.
-
-``bash
+Amount of chapters to download. Defaults to 10.  
+They will be included in the same document.
+``
 --amount [number]
+``
 short version
+``
 -a [number]
 ``
 
 ##### Furigana
-
 Add kana reading to kanji.
-
-``bash
+``
 --furigana
 ``
 
 ##### Vertical
-
 Create novel usign vertical reading.
-
-``bash
+``
 --vertical
+``
 short version
+``
 -v
 ``
 
 ##### Save to
-
-Define a directory to save the output for the current execution, to define a default folder use the config command.
+Define a directory to save the output for the current execution, this doesnt change not sets the default directory to define a default folder use the config command.
 
 ``bash
---saveto
+--saveto [path]
+``
 short version
--s
+``
+-s [path]
 ``
 
 ##### Mail to kindle
-
-Send the results of the execution to your kindle via **Gmail**.
-If no mail is set this will ask for your mail information.
-
-``bash
---send
+Send the results of the execution to your kindle via **Gmail**.  
+If no mail is set this will ask for your mail information.  
 ``
-
-You will need an **App Password** for your Gmail account, this password is saved in the password administrator of your device.
-You will also need to add your Gmail account into your authorized emails in your amazon kindle configuration.
+--send
+``  
+You will need an **App Password** for your Gmail account, this password is saved in the password administrator on your device.
+You also need to add your Gmail account into your authorized emails in your amazon kindle configuration.
 
 ##### Pdf format
-
 You can change the size of the title and body.
-
-Change title size, default is 16.
-
-``bash
+Change title size, default is 16.  
+``
 --titlesize [number]
+``  
+Change body size, default is 14.  
 ``
-
-Change body size, default is 14.
-
-``bash
 --bodysize [number]
+``  
+
+### Convert command
+Convert txt files into a ereader format. This command uses the same flags as the get command.  
+With the exceptions of **amount** and **start**.  
 ``
-
-#### Convert command
-
-Convert txt files into a ereader format. This command uses the same flags as the get command.
-With the exceptions of **amount** and **start**.
-
-``bash
 dodeyo convert [filepath .txt] [flags]
-``
-
+``  
 The txt file will be converted using these rules.
 
 - The first line of a paragraph will become the title.
-- Paragraphs are divide by empty line jumps.
-- If the last paragraph title is named Credits the next two lines will be the author and the link.
+- Chapters are divided by empty line jumps.
+- If the first line in the last paragraph is named **Credits** the next two lines will be the author and the link.
 
-#### Scan command
-
-Scan a novel from its link, to know the jlpt level of the vocabulary.
-
-``bash
-dodeyo [syosetsu novel url] [flags]
+### Scan command
+Scan a novel from its link, to know the jlpt level of the vocabulary.  
 ``
-
+dodeyo scan [syosetsu novel url] [flags]
+``  
 This command shares the next flags with the get command.
 
 - --amount -a
 - --start
 
 ##### Verbose
-
 By default scan prints the number of words on each jlpt level found in the novel.
-You can use this command to see the words it found.
-
-``bash
---verbose
-short version
--v
+You can use this command to see the list of words it found.
 ``
+--verbose
+``  
+short version  
+``
+-v
+``  
 
-#### History command
-
+### History command
 You can see your novel download history.
-
-``bash
+``
 dodeyo history
 `` 
+This prints the name, link, download date, and the next chapter to download.  
+You can use this to get the link of a novel you liked.
 
-This prints the name, link, download date, and last download.
-You can use this to continue downloading a novel you liked.
-
-#### Config
-
-``bash
-dodeyo config [flags]
+### Config
 ``
-
-You can change your config by using these flags after the config command.
+dodeyo config [flags]
+``  
 
 ##### Default path
-
 Set the default path.
-
-``bash
---defaultPath [path]
 ``
+--defaultPath [path]
+``  
 
 ##### Gmail and App password
-
 Access the new email menu to change your gmail or app password.
-
-``bash
---email
 ``
+--email
+``  
 
 ##### Kindle mail
-
-Set your kindle mail.
-
-``bash
---kindleEmail [kindle email]
+Set your kindle email.  
 ``
+--kindleEmail [kindle email]
+``  
 
 ##### Proxy
-
-Set a proxy for novel scrapping.
-
-``bash
---proxy
+Set a proxy.
 ``
-
+--proxy [proxy address]
+``  
 If a proxy is set, the program will continue to use it.
-To stop this you can remove it.
-
-``bash
+To stop this you can remove it.  
+``
 --removeProxy
 ``
 
 ##### Show
-
-Prints the current configuration values.
-
-``bash
+Prints the current configuration values.  
+``
 --show
 ``
 
-#### Update command
-
+### Update command
 Downloads and installs the newest version of dodeyo.
-
-``bash
+``
 dodeyo update
 ``
 
 ## Motivation
-
-I got a kindle as a tool to learn japanese, but after perussing the store I was a dissappointed to find a really small of japanese novels.
+I got a kindle as a tool to learn japanese, but after perusing the store I was a dissappointed to find a lack of japanese novels.
 Most of them where locked in the japanese kindle store, and accessing required using vpns and other shaddy methods.
 Online you can find an extensive amount of free novels but reading on a screen is not very nice for the eyes.
-So I created dodeyo as a tool for myself, but if you find it useful feel free to use it. 
+So I created dodeyo as a tool for myself, but if you find it useful feel free to use it.
 
 ## Contributing
-
-This is an open source project so feel free to clone and play with it.
+This is an open source project so feel free to clone it.
