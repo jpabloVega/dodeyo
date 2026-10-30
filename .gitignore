@@ -12,3 +12,5 @@ pfd/
 test/
 # Added by goreleaser init:
 dist/
+assets/NotoSansJP-Bold.ttf:Zone.Identifier
+assets/NotoSansJP-Regular.ttf:Zone.Identifier

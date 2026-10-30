@@ -26,8 +26,7 @@ archives:
       - goos: windows
         formats: [zip]
     files:
-      - none*
-    allow_empty: true
+      - ""
 
 changelog:
   sort: asc
@@ -39,4 +38,4 @@ changelog:
 release:
   footer: >-
     ---
-    Released by [GoReleaser](https://github.com/goreleaser/goreleaser).
+    Released by [GoReleaser](https://github.com).
