@@ -10,3 +10,5 @@ ttf/
 pdfTests/
 pfd/
 test/
+# Added by goreleaser init:
+dist/
