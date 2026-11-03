@@ -29,6 +29,21 @@ archives:
     files:
       - ""
 
+brews:
+  - name: dodeyo
+    repository:
+      owner: jpabloVega
+      name: homebrew-tap
+
+    directory: FormulaDodeyo
+
+    homepage: "https://github.com/jpabloVega/dodeyo"
+    description: "Syosetsu novel to ereader"
+    license: "MIT"
+
+    install: |
+      bin.install "tu-app"
+
 changelog:
   sort: asc
   filters:

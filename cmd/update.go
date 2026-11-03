@@ -40,7 +40,7 @@ func updateApp(cmd *cobra.Command, _ []string) error {
 	}
 
 	if latest.Version.Equals(v) {
-		fmt.Println("Current version is the latest")
+		fmt.Printf("Current version %v is the latest\n", latest.Version)
 	} else {
 		fmt.Printf("Version %v installed successfully\n", latest.Version)
 	}
