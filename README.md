@@ -12,7 +12,13 @@ The app keeps track of the novels you download if you only download 10 of 100 ch
 ```bash
 go install github.com/jpabloVega/dodeyo
 ```
- 
+### Homebrew install
+```bash
+brew tap jpabloVega/tap
+brew install dodeyo
+```
+
+
 ## Usage 
 
 ### Download a novel
